@@ -1,9 +1,8 @@
-var express = require('express');
-var router = express.Router();
+'use strict';
+module.exports = function(app) {
+    var users = require('../controllers/userController.js');
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
-
-module.exports = router;
+    app.route('/users')
+        .get(users.list_users)
+        .post(users.create_user);
+};
