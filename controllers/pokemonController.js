@@ -31,7 +31,7 @@ exports.show_pokemon = function(req, res) {
         if (err)
             res.send(err);
         res.json(pokemon);
-    }).select({ name: 1, type: 1, email: 1});
+    }).select({ name: 1, type: 1, level: 1, img: 1, evolution: 1});
 };
 
 exports.replace_pokemon = function(req, res) {
