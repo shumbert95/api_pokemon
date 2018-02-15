@@ -10,11 +10,14 @@ var User = require('./schema/user');
 var userRoutes = require('./routes/users');
 var pokemonRoutes = require('./routes/pokemons');
 
+var config = require('./config.js');
+
 require('./db.js');
 
 var app = express();
 var port = process.env.PORT || 3000;
 
+app.set('superSecret', config.secret);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
