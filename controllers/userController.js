@@ -77,7 +77,11 @@ exports.add_pokemon = function(req, res) {
         Pokemon.findOne({_id: req.body.pokemonId}, function(err, pokemon) {
             if (err)
                 res.send(err);
-            if (!in_array(""+pokemon._id+"", user.pokemonsOwned)) {
+            if (!pokemon) {
+                return res.status(401).send({
+                    message: "Unknown pokemon."
+                });
+            } else if (!in_array(""+pokemon._id+"", user.pokemonsOwned)) {
                 user.pokemonsOwned.push(pokemon._id);
                 user.save(function(err, user) {
                     if (err) {
