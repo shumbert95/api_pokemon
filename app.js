@@ -8,7 +8,7 @@ var User = require('./schema/user');
 
 //Routes
 var userRoutes = require('./routes/users');
-
+var pokemonRoutes = require('./routes/pokemons');
 
 require('./db.js');
 
@@ -19,6 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 userRoutes(app);
+pokemonRoutes(app);
 
 app.listen(port);
 
