@@ -1,5 +1,5 @@
-var mongoose = require('mongoose');
-var Pokemon = require('../schema/pokemon.js');
+const mongoose = require('mongoose');
+const Pokemon = require('../schema/pokemon.js');
 
 exports.list_pokemons = function(req, res) {
     Pokemon.find({}, function(err, pokemon) {
@@ -10,7 +10,7 @@ exports.list_pokemons = function(req, res) {
 };
 
 exports.create_pokemon = function(req, res) {
-    var new_pokemon = new Pokemon(req.body);
+    const new_pokemon = new Pokemon(req.body);
     new_pokemon.save(function(err, pokemon) {
         if (err)
             res.send(err);

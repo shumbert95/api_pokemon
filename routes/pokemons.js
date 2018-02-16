@@ -1,6 +1,6 @@
 'use strict';
 module.exports = function(app) {
-    var pokemons = require('../controllers/pokemonController.js');
+    const pokemons = require('../controllers/pokemonController.js');
 
     app.route('/pokemons')
         .get(pokemons.list_pokemons)

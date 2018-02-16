@@ -1,14 +1,6 @@
-var mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const schemas = require('./schemas.js');
 
-var pokemonSchema = new Schema({
-    name:  String,
-    type: String,
-    level:   String,
-    img: String,
-    evolution: [{ evolutionLevel: String, evolutionName: String }]
-});
-
-module.exports = mongoose.model('Pokemon', pokemonSchema);
+module.exports = mongoose.model('Pokemon', schemas.pokemonSchema);
 
 

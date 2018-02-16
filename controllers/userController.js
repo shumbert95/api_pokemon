@@ -1,13 +1,11 @@
-var mongoose = require('mongoose');
-var User = require('../schema/user.js');
-var Pokemon = require('../schema/pokemon.js');
-var jwt = require('jsonwebtoken');
-var bcrypt = require('bcrypt');
-var config = require('../config.js');
-var in_array = require('in_array');
-var url = require('url');
-
-
+const mongoose = require('mongoose');
+const User = require('../schema/user.js');
+const Pokemon = require('../schema/pokemon.js');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const config = require('../config.js');
+const in_array = require('in_array');
+const url = require('url');
 
 exports.login = function(req, res){
     User.findOne({
@@ -29,7 +27,7 @@ exports.login = function(req, res){
 };
 
 exports.login_required = function(req, res, next){
-    var user = me(req);
+    const user = me(req);
     if (user) {
         next();
     } else {
@@ -46,7 +44,7 @@ exports.list_users = function(req, res) {
 };
 
 exports.create_user = function(req, res) {
-    var newUser = new User(req.body);
+    const newUser = new User(req.body);
     newUser.password = bcrypt.hashSync(req.body.password, 10);
     newUser.save(function(err, user) {
         if (err) {
@@ -61,7 +59,7 @@ exports.create_user = function(req, res) {
 };
 
 exports.list_user_pokemons = function(req, res) {
-    var user = me(req);
+    const user = me(req);
     User.findOne({_id: user._id}, function(err, user) {
         Pokemon.find({}, function(err, pokemon) {
             if (err)
@@ -72,7 +70,7 @@ exports.list_user_pokemons = function(req, res) {
 };
 
 exports.add_pokemon = function(req, res) {
-    var user = me(req);
+    const user = me(req);
     User.findOne({_id: user._id}, function(err, user) {
         Pokemon.findOne({_id: req.body.pokemonId}, function(err, pokemon) {
             if (err)
@@ -81,15 +79,17 @@ exports.add_pokemon = function(req, res) {
                 return res.status(401).send({
                     message: "Unknown pokemon."
                 });
-            } else if (!in_array(""+pokemon._id+"", user.pokemonsOwned)) {
-                user.pokemonsOwned.push(pokemon._id);
-                user.save(function(err, user) {
-                    if (err) {
-                        return res.status(400).send({
-                            message: err
-                        });
-                    }
-                });
+            } else {
+                let added = user.pokemonsOwned.addToSet(pokemon).length;
+                if (added) {
+                    user.save(function(err, user) {
+                        if (err) {
+                            return res.status(400).send({
+                                message: err
+                            });
+                        }
+                    });
+                }
             }
             return res.json(user);
         });
@@ -97,46 +97,39 @@ exports.add_pokemon = function(req, res) {
 };
 
 exports.remove_pokemon = function (req, res) {
-    var user = me(req);
+    const user = me(req);
     User.findOne({_id: user._id}, function(err, user) {
-        Pokemon.findOne({_id: req.body.pokemonId}, function(err, pokemon) {
             if (err)
                 res.send(err);
-            if (in_array(""+pokemon._id+"", user.pokemonsOwned)) {
-                user.pokemonsOwned.remove(pokemon._id);
-                user.save(function(err, user) {
-                    if (err) {
-                        return res.status(400).send({
-                            message: err
-                        });
-                    }
-                });
+            for (let [key, pokemonOwned] of user.pokemonsOwned.entries()) {
+                if (pokemonOwned._id.toString() === req.body.pokemonId.toString()) {
+                    delete user.pokemonsOwned[key];
+                }
             }
+
             return res.json(user);
-        });
     });
 };
 
 exports.get_pokemon_infos = function(req, res) {
-    var user = me(req);
+    const user = me(req);
     User.findOne({_id: user._id}, function(err, user) {
-        if (in_array(""+req.params.id+"", user.pokemonsOwned)) {
-            Pokemon.findOne({_id: req.params.id}, function(err, pokemon) {
-                if (err)
-                    res.send(err);
+        if (err)
+            res.send(err);
+        for (let [key, pokemonOwned] of user.pokemonsOwned.entries()) {
+            if (pokemonOwned._id.toString() === req.body.pokemonId.toString()) {
                 return res.json(pokemon);
-            });
-        } else {
-            return res.status(200).send({
-                message: "You don't have this pokemon."
-            });
+            }
         }
+        return res.status(200).send({
+            message: "You don't have this pokemon."
+        });
     });
 };
 
 function me (req){
     if (req.headers && req.headers.authorization) {
-        var authorization = req.headers.authorization.replace(/^JWT\s/, ''),
+        let authorization = req.headers.authorization.replace(/^JWT\s/, ''),
             decoded;
         try {
             decoded = jwt.verify(authorization, config.secret);

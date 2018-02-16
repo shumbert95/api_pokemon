@@ -1,21 +1,21 @@
-var express = require('express');
-var mongoose = require('mongoose');
-var bodyParser = require('body-parser');
+const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
 // Models
-var Pokemon = require('./schema/pokemon');
-var User = require('./schema/user');
+const Pokemon = require('./schema/pokemon');
+const User = require('./schema/user');
 
 //Routes
-var userRoutes = require('./routes/users');
-var pokemonRoutes = require('./routes/pokemons');
+const userRoutes = require('./routes/users');
+const pokemonRoutes = require('./routes/pokemons');
 
-var config = require('./config.js');
+const config = require('./config.js');
 
 require('./db.js');
 
-var app = express();
-var port = process.env.PORT || 3000;
+const app = express();
+const port = process.env.PORT || 3000;
 
 app.set('superSecret', config.secret);
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -30,4 +30,5 @@ console.log('todo list RESTful API server started on: ' + port);
 
 app.use(function(req, res) {
     res.status(404).send({url: req.originalUrl + ' not found'})
+
 });

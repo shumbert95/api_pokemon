@@ -1,18 +1,13 @@
-var mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-var bcrypt = require('bcrypt');
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
-var userSchema = new Schema({
-    name:  String,
-    email:   String,
-    password: String,
-    pokemonsOwned: [{ type: Schema.Types.ObjectId, ref:'Pokemon' }]
-});
+const schemas = require('./schemas.js');
 
-userSchema.methods.comparePassword = function(password) {
+
+schemas.userSchema.methods.comparePassword = function(password) {
     return bcrypt.compareSync(password, this.password)
 };
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('User', schemas.userSchema);
 
 
