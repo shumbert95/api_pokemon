@@ -1,5 +1,12 @@
 extends layout
 
+
 block content
   h1= title
-  p Welcome to #{title}
+  p Bienvenue sur #{title}
+  each pokemon in pokemons
+    h2= pokemon.name
+    p Type : #{pokemon.type} <br> Niveau : #{pokemon.level} <br> Image : #{pokemon.img}
+    each evolution in pokemon.evolution
+        h4 Evolutions of #{pokemon.name}
+        p Nom : #{evolution.evolutionName} <br> Niveau requis  : #{evolution.evolutionLevel}
