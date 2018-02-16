@@ -116,14 +116,22 @@ exports.get_pokemon_infos = function(req, res) {
     User.findOne({_id: user._id}, function(err, user) {
         if (err)
             res.send(err);
-        for (let [key, pokemonOwned] of user.pokemonsOwned.entries()) {
-            if (pokemonOwned._id.toString() === req.body.pokemonId.toString()) {
-                return res.json(pokemon);
+        if (user.pokemonsOwned.length > 0) {
+            console.log(user.pokemonsOwned);
+            for (let [key, pokemonOwned] of user.pokemonsOwned.entries()) {
+                if (pokemonOwned._id.toString() === req.params.id.toString()) {
+                    return res.json(pokemonOwned);
+                }
             }
+            return res.status(200).send({
+                message: "You don't have this pokemon."
+            });
+        } else {
+            return res.status(200).send({
+                message: "You don't have any pokemon."
+            });
         }
-        return res.status(200).send({
-            message: "You don't have this pokemon."
-        });
+
     });
 };
 
