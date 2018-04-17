@@ -7,10 +7,3 @@ notifications:
     - humbertsimon@gmail.com
     on_success: never
     on_failure: always
-deploy:
-  provider: heroku
-  api_key:
-    secure: $API_KEY
-  app: shumbert95/api_pokemon
-  on:
-    repo: shumbert95/api_pokemon
