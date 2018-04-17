@@ -22,7 +22,7 @@ exports.delete_pokemon = function(req, res) {
     Pokemon.remove({_id: req.params.id}, function (err) {
         if (err)
             res.send(err);
-        res.send("Pokemon " + req.params.id + " supprimé")
+        res.send("Pokemon " + req.params.id + " supprimé");
     });
 };
 
