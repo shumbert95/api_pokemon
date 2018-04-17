@@ -1,0 +1,2 @@
+# api_pokemon
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a72b79b66ddc422ca2711129b98c90f2)](https://app.codacy.com/app/shumbert95/api_pokemon?utm_source=github.com&utm_medium=referral&utm_content=shumbert95/api_pokemon&utm_campaign=badger)
