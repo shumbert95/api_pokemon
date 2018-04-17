@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test":  "jshint ./controllers"
+    "test": "jshint ./controllers"
   },
   "dependencies": {
     "bcrypt": "^1.0.3",
@@ -13,6 +13,7 @@
     "debug": "~2.6.9",
     "express": "~4.15.5",
     "in_array": "^1.1.0",
+    "jshint": "^2.9.5",
     "jsonwebtoken": "^8.1.1",
     "mongodb": "^3.0.2",
     "mongoose": "^5.0.5",
