@@ -1,10 +1,10 @@
-language: node_ks
+language: node_js
 node_js:
   - "node"
 notifications:
   email:
     recipients:
-    - simon.humbert@gmail.com
+    - humbertsimon@gmail.com
     on_success: never
     on_failure: always
 deploy:
