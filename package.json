@@ -16,7 +16,7 @@
     "jshint": "^2.9.5",
     "jsonwebtoken": "^8.1.1",
     "mongodb": "^3.0.2",
-    "mongoose": "^5.0.5",
+    "mongoose": "^5.2.12",
     "morgan": "~1.9.0",
     "node-uuid": "^1.4.8",
     "nodemon": "^1.14.12",
