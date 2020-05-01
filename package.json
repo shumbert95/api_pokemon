@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "jshint ./controllers"
+    "test": "jshint ./controllers",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "dependencies": {
     "bcrypt": "^1.0.3",
@@ -22,6 +24,8 @@
     "nodemon": "^1.14.12",
     "pug": "2.0.0-beta11",
     "serve-favicon": "~2.4.5",
-    "url": "^0.11.0"
-  }
+    "url": "^0.11.0",
+    "snyk": "^1.316.1"
+  },
+  "snyk": true
 }
