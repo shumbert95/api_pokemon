@@ -13,7 +13,7 @@
     "debug": "~2.6.9",
     "express": "~4.15.5",
     "in_array": "^1.1.0",
-    "jshint": "^2.9.5",
+    "jshint": "^2.13.4",
     "jsonwebtoken": "^8.1.1",
     "mongodb": "^3.0.2",
     "mongoose": "^5.0.5",
